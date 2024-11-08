@@ -1,4 +1,7 @@
-CREATE TABLE Customers (
+
+# Store Information about customer who make purchases on the platform.
+
+CREATE TABLE IF NOT EXISTS Customers (
          customer_id INT PRIMARY KEY AUTO_INCREMENT,
          name VARCHAR(100) NOT NULL,
          email VARCHAR(100) NOT NULL UNIQUE,
@@ -6,8 +9,9 @@ CREATE TABLE Customers (
          address TEXT
     );
 
+# Contains details about products available for purchase.
 
-CREATE TABLE Products (
+CREATE TABLE IF NOT EXISTS Products (
          product_id INT PRIMARY KEY AUTO_INCREMENT,
          product_name VARCHAR(100) NOT NULL,
          price DECIMAL(10, 2) NOT NULL,
@@ -16,8 +20,9 @@ CREATE TABLE Products (
          category_id INT
      );
 
+# Records All Customer order,tracking their status and details.
 
-CREATE TABLE Orders (
+CREATE TABLE IF NOT EXISTS Orders (
          order_id INT PRIMARY KEY AUTO_INCREMENT,
          customer_id INT NOT NULL,
          order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -25,8 +30,9 @@ CREATE TABLE Orders (
          FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
      );
 
+# Lists each item in an order, including quantity and price.
 
-CREATE TABLE Order_Items (
+CREATE TABLE IF NOT EXISTS Order_Items (
          item_id INT PRIMARY KEY AUTO_INCREMENT,
          order_id INT NOT NULL,
          product_id INT NOT NULL,
@@ -36,8 +42,9 @@ CREATE TABLE Order_Items (
          FOREIGN KEY (product_id) REFERENCES Products(product_id)
      );
 
+# Tracks all Payment Transactions for Orders
 
-CREATE TABLE Payments (
+CREATE TABLE IF NOT EXISTS Payments (
         payment_id INT PRIMARY KEY AUTO_INCREMENT,
         order_id INT NOT NULL,
         payment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -46,15 +53,18 @@ CREATE TABLE Payments (
         FOREIGN KEY (order_id) REFERENCES Orders(order_id)
     );
 
-CREATE TABLE Categories (
+# Organizes products into categories, making it easier for customer to browse.
+
+CREATE TABLE IF NOT EXISTS Categories (
          category_id INT PRIMARY KEY AUTO_INCREMENT,
          name VARCHAR(100) NOT NULL ,
          parent_category_id INT NOT NULL ,
          FOREIGN KEY (parent_category_id) REFERENCES Categories(category_id)
      );
 
+# Manages All shipping information tracking number and carrier.
 
-CREATE TABLE Shipments (
+CREATE TABLE IF NOT EXISTS Shipments (
          shipment_id INT PRIMARY KEY AUTO_INCREMENT,
          order_id INT NOT NULL ,
          carrier VARCHAR(50) NOT NULL ,
@@ -63,8 +73,9 @@ CREATE TABLE Shipments (
          FOREIGN KEY (order_id) REFERENCES Orders(order_id)
      );
 
+# Allows customers to review products they have purchased.
 
-CREATE TABLE Reviews (
+CREATE TABLE IF NOT EXISTS Reviews (
          review_id INT PRIMARY KEY AUTO_INCREMENT,
          product_id INT NOT NULL ,
          customer_id INT NOT NULL ,
@@ -74,11 +85,12 @@ CREATE TABLE Reviews (
          FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
      );
 
+# Holds information about suppliers for product inventory management.
 
-CREATE TABLE Suppliers (
+CREATE TABLE IF NOT EXISTS Suppliers (
          supplier_id INT PRIMARY KEY AUTO_INCREMENT,
          name VARCHAR(100) NOT NULL ,
-         contact_info TEXT NOT NULL
+         contact_info TEXT  NOT NULL
      );
 
 
