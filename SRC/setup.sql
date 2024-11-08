@@ -42,17 +42,6 @@ CREATE TABLE IF NOT EXISTS Order_Items (
          FOREIGN KEY (product_id) REFERENCES Products(product_id)
      );
 
-# Tracks all Payment Transactions for Orders
-
-CREATE TABLE IF NOT EXISTS Payments (
-        payment_id INT PRIMARY KEY AUTO_INCREMENT,
-        order_id INT NOT NULL,
-        payment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-        amount DECIMAL(10, 2) NOT NULL,
-        status VARCHAR(20) NOT NULL,
-        FOREIGN KEY (order_id) REFERENCES Orders(order_id)
-    );
-
 # Organizes products into categories, making it easier for customer to browse.
 
 CREATE TABLE IF NOT EXISTS Categories (
@@ -84,15 +73,5 @@ CREATE TABLE IF NOT EXISTS Reviews (
          FOREIGN KEY (product_id) REFERENCES Products(product_id),
          FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
      );
-
-# Holds information about suppliers for product inventory management.
-
-CREATE TABLE IF NOT EXISTS Suppliers (
-         supplier_id INT PRIMARY KEY AUTO_INCREMENT,
-         name VARCHAR(100) NOT NULL ,
-         contact_info TEXT  NOT NULL
-     );
-
-
 
 
