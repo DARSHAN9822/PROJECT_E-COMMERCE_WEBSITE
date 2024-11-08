@@ -26,13 +26,6 @@ VALUES
 (1, 2, 2, 499.99),
 (2, 3, 1, 299.99);
 
--- Sample data for Payments
-INSERT INTO Payments (order_id, amount, status)
-VALUES 
-(1, 1999.97, 'Completed'),
-(2, 299.99, 'Pending'),
-(3, 499.99, 'Completed');
-
 -- Sample data for Categories
 INSERT INTO Categories (name, parent_category_id)
 VALUES 
@@ -52,10 +45,4 @@ VALUES
 (1, 1, 5, 'Excellent product! Highly recommended.'),
 (2, 2, 4, 'Good value for money.'),
 (3, 3, 3, 'Decent product, but could be better.');
-
--- Sample data for Suppliers
-INSERT INTO Suppliers (name, contact_info)
-VALUES 
-('Tech Supply Co', '123 Tech Ave, Metropolis'),
-('Gadget World', '456 Gadget Blvd, Technotown');
 
