@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS E_COMMERCE_DB;
 
 USE E_COMMERCE_DB ;
 
-CREATE TABLE Customers (
+CREATE TABLE IF NOT EXISTS Customers (
          customer_id INT PRIMARY KEY AUTO_INCREMENT,
          name VARCHAR(100) NOT NULL,
          email VARCHAR(100) NOT NULL UNIQUE,
@@ -11,7 +11,7 @@ CREATE TABLE Customers (
     );
 
 
-CREATE TABLE Products (
+CREATE TABLE IF NOT EXISTS Products (
          product_id INT PRIMARY KEY AUTO_INCREMENT,
          product_name VARCHAR(100) NOT NULL,
          price DECIMAL(10, 2) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE Products (
      ); 
 
 
-CREATE TABLE Orders ( 
+CREATE TABLE IF NOT EXISTS Orders ( 
          order_id INT PRIMARY KEY AUTO_INCREMENT,
          customer_id INT NOT NULL,
          order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -29,7 +29,7 @@ CREATE TABLE Orders (
      );
 
 
-CREATE TABLE Order_Items (
+CREATE TABLE IF NOT EXISTS Order_Items (
          item_id INT PRIMARY KEY AUTO_INCREMENT,
          order_id INT NOT NULL,
          product_id INT NOT NULL,
@@ -39,14 +39,14 @@ CREATE TABLE Order_Items (
          FOREIGN KEY (product_id) REFERENCES Products(product_id)
      );
 
-CREATE TABLE Categories (
+CREATE TABLE IF NOT EXISTS Categories (
          category_id INT PRIMARY KEY AUTO_INCREMENT,
          name VARCHAR(100) NOT NULL ,
          parent_category_id INT  NULL ,
          FOREIGN KEY (parent_category_id) REFERENCES Categories(category_id)
      );
 
- CREATE TABLE Shipments (
+ CREATE TABLE IF NOT EXISTS Shipments (
     shipment_id INT PRIMARY KEY AUTO_INCREMENT,
     order_id INT NOT NULL,
     carrier VARCHAR(50) NOT NULL DEFAULT 'DELIVERY_COURIER',
@@ -58,7 +58,7 @@ CREATE TABLE Categories (
 
  );   
     
-CREATE TABLE Reviews (
+CREATE TABLE IF NOT EXISTS Reviews (
     review_id INT PRIMARY KEY AUTO_INCREMENT,
     product_id INT NOT NULL ,
     ustomer_id INT NOT NULL ,
@@ -68,7 +68,7 @@ CREATE TABLE Reviews (
     FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
  );
 
-CREATE TABLE Cart (
+CREATE TABLE IF NOT EXISTS Cart (
     cart_id INT PRIMARY KEY AUTO_INCREMENT,
     customer_id INT NOT NULL,
     product_id INT NOT NULL,
