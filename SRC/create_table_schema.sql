@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS Categories (
 CREATE TABLE IF NOT EXISTS Reviews (
     review_id INT PRIMARY KEY AUTO_INCREMENT,
     product_id INT NOT NULL ,
-    ustomer_id INT NOT NULL ,
+    customer_id INT NOT NULL ,
     rating TINYINT CHECK (rating BETWEEN 1 AND 5) NOT NULL ,
     review_text TEXT ,
     FOREIGN KEY (product_id) REFERENCES Products(product_id),
