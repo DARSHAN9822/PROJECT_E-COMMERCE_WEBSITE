@@ -1,6 +1,7 @@
 import mysql.connector
 import argparse
 from tabulate import tabulate
+import re 
 
 
 def connect_to_db():
@@ -13,15 +14,41 @@ def connect_to_db():
 
 
 def add_product():
+
     product_name = input("Enter product name: ")
-    price = float(input("Enter price of the product: "))
-    quantity = int(input("Enter quantity of the product: "))
-    category_id = int(input("Enter category ID: "))
+    if not re.match(r"^[a-zA-Z0-9\s\-\.,]+$", product_name):
+        print("Invalid product name. Use letters, numbers, spaces, dashes, periods, or commas.")
+        return
+
+    price_input = input("Enter price of the product: ")
+    if not re.match(r"^\d+(\.\d{1,2})?$", price_input):
+        print("Invalid price. Enter a positive number with up to two decimal places.")
+        return
+    price = float(price_input)
+
+    quantity_input = input("Enter quantity of the product: ")
+    if not re.match(r"^\d+$", quantity_input):
+        print("Invalid quantity. Enter a non-negative integer.")
+        return
+    quantity = int(quantity_input)
+
+    category_id_input = input("Enter category ID: ")
+    if not re.match(r"^\d+$", category_id_input):
+        print("Invalid category ID. Enter a positive integer.")
+        return
+    category_id = int(category_id_input)
 
     connection = connect_to_db()
     cursor = connection.cursor()
 
+    # Check if category_id exists in the Categories table
     try:
+        cursor.execute("SELECT COUNT(*) FROM Categories WHERE category_id = %s", (category_id,))
+        result = cursor.fetchone()
+        if result[0] == 0:
+            print(f"Category ID {category_id} does not exist. Please provide a valid category ID.")
+            return
+
         cursor.execute(
             "INSERT INTO Products (product_name, price, stock, category_id) VALUES (%s, %s, %s, %s)",
             (product_name, price, quantity, category_id)
